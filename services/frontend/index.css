@@ -1,7 +1,8 @@
 html,
 body {
     background: #eff3f4;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue',
+    font-family:
+        -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue',
         sans-serif;
 }
 
@@ -66,7 +67,9 @@ body {
 }
 
 .is-shady:hover {
-    box-shadow: 0 10px 16px rgba(0, 0, 0, 0.13), 0 6px 6px rgba(0, 0, 0, 0.19);
+    box-shadow:
+        0 10px 16px rgba(0, 0, 0, 0.13),
+        0 6px 6px rgba(0, 0, 0, 0.19);
 }
 
 .is-shady .card-content {

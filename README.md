@@ -14,20 +14,20 @@ Como nosso objetivo é didático, na livraria virtual estão à venda apenas tr�
 
 No restante deste documento vamos:
 
--   Descrever o sistema, com foco na sua arquitetura.
--   Apresentar instruções para sua execução local, usando o código disponibilizado no repositório.
--   Descrever duas tarefas práticas para serem realizadas pelos alunos, as quais envolvem:
-    -   Tarefa Prática #1: Implementação de uma nova operação em um dos microsserviços
-    -   Tarefa Prática #2: Criação de containers Docker para facilitar a execução dos microsserviços.
+- Descrever o sistema, com foco na sua arquitetura.
+- Apresentar instruções para sua execução local, usando o código disponibilizado no repositório.
+- Descrever duas tarefas práticas para serem realizadas pelos alunos, as quais envolvem:
+    - Tarefa Prática #1: Implementação de uma nova operação em um dos microsserviços
+    - Tarefa Prática #2: Criação de containers Docker para facilitar a execução dos microsserviços.
 
 ## Arquitetura
 
 A micro-livraria possui quatro microsserviços:
 
--   Front-end: microsserviço responsável pela interface com usuário, conforme mostrado na figura anterior.
--   Controller: microsserviço responsável por intermediar a comunicação entre o front-end e o backend do sistema.
--   Shipping: microserviço para cálculo de frete.
--   Inventory: microserviço para controle do estoque da livraria.
+- Front-end: microsserviço responsável pela interface com usuário, conforme mostrado na figura anterior.
+- Controller: microsserviço responsável por intermediar a comunicação entre o front-end e o backend do sistema.
+- Shipping: microserviço para cálculo de frete.
+- Inventory: microserviço para controle do estoque da livraria.
 
 Os quatro microsserviços estão implementados em **JavaScript**, usando o Node.js para execução dos serviços no back-end.
 
@@ -49,8 +49,8 @@ Optamos por usar gRPC no backend porque ele possui um desempenho melhor do que R
 
 Para viabilizar essa transparência, gRPC usa dois conceitos centrais:
 
--   uma linguagem para definição de interfaces
--   um protocolo para troca de mensagens entre aplicações clientes e servidoras.
+- uma linguagem para definição de interfaces
+- um protocolo para troca de mensagens entre aplicações clientes e servidoras.
 
 Especificamente, no caso de gRPC, a implementação desses dois conceitos ganhou o nome de **Protocol Buffer**. Ou seja, podemos dizer que:
 
@@ -69,7 +69,7 @@ O exemplo a seguir mostra o arquivo [.proto](https://github.com/aserg-ufmg/micro
 
 Em gRPC, as mensagens (exemplo: `Shippingload`) são formadas por um conjunto de campos, tal como em um `struct` da linguagem C, por exemplo. Todo campo possui um nome (exemplo: `cep`) e um tipo (exemplo: `string`). Além disso, todo campo tem um número inteiro que funciona como um identificador único para o mesmo na mensagem (exemplo: ` = 1`). Esse número é usado pela implementação de gRPC para identificar o campo no formato binário de dados usado por gRPC para comunicação distribuída.
 
-Arquivos .proto são usados para gerar **stubs**, que nada mais são do que proxies que encapsulam os detalhes de comunicação em rede, incluindo troca de mensagens, protocolos, etc. Mais detalhes sobre o padrão de projeto Proxy podem ser obtidos no [Capítulo 6](https://engsoftmoderna.info/cap6.html). 
+Arquivos .proto são usados para gerar **stubs**, que nada mais são do que proxies que encapsulam os detalhes de comunicação em rede, incluindo troca de mensagens, protocolos, etc. Mais detalhes sobre o padrão de projeto Proxy podem ser obtidos no [Capítulo 6](https://engsoftmoderna.info/cap6.html).
 
 Em linguagens estáticas, normalmente precisa-se chamar um compilador para gerar o código de tais stubs. No caso de JavaScript, no entanto, esse passo não é necessário, pois os stubs são gerados de forma transparente, em tempo de execução.
 
@@ -104,13 +104,13 @@ npm run start
 
 6.  Para fins de teste, efetue uma requisição para o microsserviço responsável pela API do backend.
 
--   Se tiver o `curl` instalado na sua máquina, basta usar:
+- Se tiver o `curl` instalado na sua máquina, basta usar:
 
 ```
 curl -i -X GET http://localhost:3000/products
 ```
 
--   Caso contrário, você pode fazer uma requisição acessando, no seu navegador, a seguinte URL: `http://localhost:3000/products`.
+- Caso contrário, você pode fazer uma requisição acessando, no seu navegador, a seguinte URL: `http://localhost:3000/products`.
 
 7. Teste agora o sistema como um todo, abrindo o front-end em um navegador: http://localhost:5000. Faça então um teste das principais funcionalidades da livraria.
 
@@ -185,15 +185,15 @@ De forma semelhante à função `SearchAllProducts`, que já está implementada,
 
 A função acima usa o método `find` para pesquisar em `products` pelo ID de produto fornecido. Veja que:
 
--   `payload` é o parâmetro de entrada do nosso serviço, conforme definido antes no arquivo .proto (passo 2). Ele armazena o ID do produto que queremos pesquisar. Para acessar esse ID basta escrever `payload.request.id`.
+- `payload` é o parâmetro de entrada do nosso serviço, conforme definido antes no arquivo .proto (passo 2). Ele armazena o ID do produto que queremos pesquisar. Para acessar esse ID basta escrever `payload.request.id`.
 
--   `product` é uma unidade de produto a ser pesquisado pela função `find` (nativa de JavaScript). Essa pesquisa é feita em todos os items da lista de produtos até que um primeiro `product` atenda a condição de busca, isto é `product.id == payload.request.id`.
+- `product` é uma unidade de produto a ser pesquisado pela função `find` (nativa de JavaScript). Essa pesquisa é feita em todos os items da lista de produtos até que um primeiro `product` atenda a condição de busca, isto é `product.id == payload.request.id`.
 
--   [products](https://github.com/aserg-ufmg/micro-livraria/blob/main/services/inventory/products.json) é um arquivo JSON que contém a descrição dos livros à venda na livraria.
+- [products](https://github.com/aserg-ufmg/micro-livraria/blob/main/services/inventory/products.json) é um arquivo JSON que contém a descrição dos livros à venda na livraria.
 
--   `callback` é uma função que deve ser invocada com dois parâmetros:
-    -   O primeiro parâmetro é um objeto de erro, caso ocorra. No nosso exemplo nenhum erro será retornado, portanto `null`.
-    -   O segundo parâmetro é o resultado da função, no nosso caso um `ProductResponse`, assim como definido no arquivo [proto/inventory.proto](https://github.com/aserg-ufmg/micro-livraria/blob/main/proto/inventory.proto).
+- `callback` é uma função que deve ser invocada com dois parâmetros:
+    - O primeiro parâmetro é um objeto de erro, caso ocorra. No nosso exemplo nenhum erro será retornado, portanto `null`.
+    - O segundo parâmetro é o resultado da função, no nosso caso um `ProductResponse`, assim como definido no arquivo [proto/inventory.proto](https://github.com/aserg-ufmg/micro-livraria/blob/main/proto/inventory.proto).
 
 #### Passo 4
 
@@ -252,11 +252,11 @@ Como ilustrado na próxima figura, o Dockerfile é utilizado para gerar uma imag
 
 No Dockerfile, você precisa incluir cinco instruções
 
--   `FROM`: tecnologia que será a base de criação da imagem.
--   `WORKDIR`: diretório da imagem na qual os comandos serão executados.
--   `COPY`: comando para copiar o código fonte para a imagem.
--   `RUN`: comando para instalação de dependências.
--   `CMD`: comando para executar o seu código quando o container for criado.
+- `FROM`: tecnologia que será a base de criação da imagem.
+- `WORKDIR`: diretório da imagem na qual os comandos serão executados.
+- `COPY`: comando para copiar o código fonte para a imagem.
+- `RUN`: comando para instalação de dependências.
+- `CMD`: comando para executar o seu código quando o container for criado.
 
 Ou seja, nosso Dockerfile terá as seguintes linhas:
 
@@ -287,9 +287,9 @@ docker build -t micro-livraria/shipping -f shipping.Dockerfile ./
 
 onde:
 
--   `docker build`: comando de compilação do Docker.
--   `-t micro-livraria/shipping`: tag de identificação da imagem criada.
--   `-f shipping.Dockerfile`: dockerfile a ser compilado.
+- `docker build`: comando de compilação do Docker.
+- `-t micro-livraria/shipping`: tag de identificação da imagem criada.
+- `-f shipping.Dockerfile`: dockerfile a ser compilado.
 
 O `./` no final indica que estamos executando os comandos do Dockerfile tendo como referência a raiz do projeto.
 
@@ -324,11 +324,11 @@ docker run -ti --name shipping -p 3001:3001 micro-livraria/shipping
 
 onde:
 
--   `docker run`: comando de execução de uma imagem docker.
--   `-ti`: habilita a interação com o container via terminal.
--   `--name shipping`: define o nome do container criado.
--   `-p 3001:3001`: redireciona a porta 3001 do container para sua máquina.
--   `micro-livraria/shipping`: especifica qual a imagem deve-se executar.
+- `docker run`: comando de execução de uma imagem docker.
+- `-ti`: habilita a interação com o container via terminal.
+- `--name shipping`: define o nome do container criado.
+- `-p 3001:3001`: redireciona a porta 3001 do container para sua máquina.
+- `micro-livraria/shipping`: especifica qual a imagem deve-se executar.
 
 Se tudo estiver correto, você irá receber a seguinte mensagem em seu terminal:
 
@@ -358,9 +358,8 @@ docker stop shipping
 
 onde:
 
--   `docker stop`: comando para interromper a execução de um container.
--   `shipping`: nome do container que será interrompido.
-
+- `docker stop`: comando para interromper a execução de um container.
+- `shipping`: nome do container que será interrompido.
 
 ```
 docker rm shipping
@@ -368,9 +367,8 @@ docker rm shipping
 
 onde:
 
--   `docker rm`: comando para remover um container.
--   `shipping`: nome do container que será removido.
-
+- `docker rm`: comando para remover um container.
+- `shipping`: nome do container que será removido.
 
 ```
 docker rmi micro-livraria/shipping
@@ -378,8 +376,8 @@ docker rmi micro-livraria/shipping
 
 onde:
 
--   `docker rmi`: comando para remover uma imagem.
--   `micro-livraria/shipping`: nome da imagem que será removida.
+- `docker rmi`: comando para remover uma imagem.
+- `micro-livraria/shipping`: nome da imagem que será removida.
 
 ## Comentários Finais
 

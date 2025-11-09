@@ -7,6 +7,7 @@ docker build -t micro-livraria -f cypress/Dockerfile .
 ```
 
 Para executar a aplicação completa via Docker
+
 ```bash
 docker run -ti -p 3000:3000 -p 5000:5000 micro-livraria
 ```

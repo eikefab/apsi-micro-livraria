@@ -29,9 +29,7 @@ server.addService(notificationsProto.NotificationService.service, {
         const { userId, bookId, bookName } = call.request;
 
         // Verifica se já existe uma inscrição ativa
-        const existingSubscription = subscriptions.find(
-            (sub) => sub.userId === userId && sub.bookId === bookId
-        );
+        const existingSubscription = subscriptions.find((sub) => sub.userId === userId && sub.bookId === bookId);
 
         if (existingSubscription) {
             callback(null, {
@@ -79,9 +77,7 @@ server.addService(notificationsProto.NotificationService.service, {
     MarkNotificationAsRead: (call, callback) => {
         const { notificationId, userId } = call.request;
 
-        const notification = notifications.find(
-            (notif) => notif.id === notificationId && notif.userId === userId
-        );
+        const notification = notifications.find((notif) => notif.id === notificationId && notif.userId === userId);
 
         if (notification) {
             notification.read = true;
@@ -97,9 +93,7 @@ server.addService(notificationsProto.NotificationService.service, {
     DeleteNotification: (call, callback) => {
         const { notificationId, userId } = call.request;
 
-        const index = notifications.findIndex(
-            (notif) => notif.id === notificationId && notif.userId === userId
-        );
+        const index = notifications.findIndex((notif) => notif.id === notificationId && notif.userId === userId);
 
         if (index !== -1) {
             notifications.splice(index, 1);
@@ -115,9 +109,7 @@ server.addService(notificationsProto.NotificationService.service, {
     GetUnreadCount: (call, callback) => {
         const { userId } = call.request;
 
-        const unreadCount = notifications.filter(
-            (notif) => notif.userId === userId && !notif.read
-        ).length;
+        const unreadCount = notifications.filter((notif) => notif.userId === userId && !notif.read).length;
 
         callback(null, { count: unreadCount });
     },
@@ -129,9 +121,7 @@ server.addService(notificationsProto.NotificationService.service, {
         const { bookId, bookName, newQuantity } = call.request;
 
         // Encontra todos os usuários inscritos para este livro
-        const interestedSubscriptions = subscriptions.filter(
-            (sub) => sub.bookId === bookId
-        );
+        const interestedSubscriptions = subscriptions.filter((sub) => sub.bookId === bookId);
 
         let notifiedUsers = 0;
 

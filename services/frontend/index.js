@@ -14,9 +14,7 @@ function newBook(book) {
         ? '<span class="out-of-stock-badge">ESGOTADO</span>'
         : `<p class="is-size-6">Disponível em estoque: ${book.quantity}</p>`;
 
-    const buyButton = isOutOfStock
-        ? ''
-        : '<button class="button button-buy is-success is-fullwidth">Comprar</button>';
+    const buyButton = isOutOfStock ? '' : '<button class="button button-buy is-success is-fullwidth">Comprar</button>';
 
     const notifyButton = isOutOfStock
         ? `<button class="button notify-me-button" data-book-id="${book.id}" data-book-name="${book.name}">
