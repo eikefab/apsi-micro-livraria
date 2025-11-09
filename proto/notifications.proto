@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+service NotificationService {
+    rpc SubscribeToBook(SubscriptionRequest) returns (SubscriptionResponse) {}
+    rpc GetUserNotifications(UserRequest) returns (NotificationsResponse) {}
+    rpc MarkNotificationAsRead(MarkReadRequest) returns (MarkReadResponse) {}
+    rpc DeleteNotification(DeleteNotificationRequest) returns (DeleteNotificationResponse) {}
+    rpc GetUnreadCount(UserRequest) returns (UnreadCountResponse) {}
+    rpc NotifyStockUpdate(StockUpdateRequest) returns (StockUpdateResponse) {}
+}
+
+message SubscriptionRequest {
+    string userId = 1;
+    int32 bookId = 2;
+    string bookName = 3;
+}
+
+message SubscriptionResponse {
+    bool success = 1;
+    string message = 2;
+}
+
+message UserRequest {
+    string userId = 1;
+}
+
+message NotificationItem {
+    int32 id = 1;
+    int32 bookId = 2;
+    string bookName = 3;
+    string message = 4;
+    string createdAt = 5;
+    bool read = 6;
+}
+
+message NotificationsResponse {
+    repeated NotificationItem notifications = 1;
+}
+
+message MarkReadRequest {
+    int32 notificationId = 1;
+    string userId = 2;
+}
+
+message MarkReadResponse {
+    bool success = 1;
+}
+
+message DeleteNotificationRequest {
+    int32 notificationId = 1;
+    string userId = 2;
+}
+
+message DeleteNotificationResponse {
+    bool success = 1;
+}
+
+message UnreadCountResponse {
+    int32 count = 1;
+}
+
+message StockUpdateRequest {
+    int32 bookId = 1;
+    string bookName = 2;
+    int32 newQuantity = 3;
+}
+
+message StockUpdateResponse {
+    int32 notifiedUsers = 1;
+}

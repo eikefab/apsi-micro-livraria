@@ -56,19 +56,287 @@ body {
     background: #fff;
     box-shadow: rgba(0, 0, 0, 0.1) 0 1px 0;
     border-radius: 4px;
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
     margin: 10px;
     position: relative;
     transition: all 0.2s ease-in-out;
     width: 100%;
+    height: 100%;
 }
 
 .is-shady:hover {
     box-shadow: 0 10px 16px rgba(0, 0, 0, 0.13), 0 6px 6px rgba(0, 0, 0, 0.19);
 }
 
+.is-shady .card-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.is-shady .card-content .content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.column.is-4 {
+    display: flex;
+    margin-bottom: 30px;
+}
+
 @media (min-width: 800px) {
     .book-meta {
         min-height: 250px;
     }
+}
+
+/* Notification Bell Styles */
+.notification-bell-container {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    z-index: 100;
+}
+
+.notification-bell {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    padding: 0;
+    transition: transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.notification-bell:hover {
+    transform: scale(1.1);
+}
+
+.notification-bell .icon-bell {
+    font-size: 28px;
+    color: white;
+}
+
+.notification-bell .icon-bell::before {
+    color: white;
+}
+
+.notification-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: #ff3860;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.notification-dropdown {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    min-width: 320px;
+    max-width: 400px;
+    max-height: 400px;
+    overflow: hidden;
+    z-index: 1000;
+}
+
+.notification-header {
+    padding: 16px;
+    border-bottom: 1px solid #e0e0e0;
+    background: #f5f5f5;
+}
+
+.notification-header strong {
+    color: #3273dc !important;
+    font-size: 16px;
+}
+
+.notification-list {
+    max-height: 350px;
+    overflow-y: auto;
+}
+
+.notification-item {
+    padding: 16px;
+    border-bottom: 1px solid #e0e0e0;
+    transition: background 0.2s ease;
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.notification-item:hover {
+    background: #f9f9f9;
+}
+
+.notification-item.unread {
+    background: #e3f2fd;
+}
+
+.notification-item.unread:hover {
+    background: #d1e7fd;
+}
+
+.notification-item-content {
+    flex: 1;
+    cursor: pointer;
+}
+
+.notification-item-title {
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: #333;
+}
+
+.notification-item-message {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 4px;
+}
+
+.notification-item-time {
+    font-size: 12px;
+    color: #999;
+}
+
+.notification-delete-btn {
+    background: transparent;
+    border: none;
+    color: #ff3860;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.notification-delete-btn:hover {
+    background: #ff3860;
+    color: white;
+}
+
+.no-notifications {
+    padding: 32px;
+    text-align: center;
+    color: #999;
+}
+
+/* Out of Stock Styles */
+.out-of-stock {
+    opacity: 0.7;
+}
+
+.out-of-stock-badge {
+    background: #ff3860;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    display: inline-block;
+    margin-bottom: 8px;
+}
+
+.notify-me-button {
+    background: #ffdd57;
+    color: rgba(0, 0, 0, 0.7);
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    width: 100%;
+    margin-top: 8px;
+}
+
+.notify-me-button:hover {
+    background: #ffd83d;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.notify-me-button:disabled {
+    background: #e0e0e0;
+    color: #999;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Stock Control in Book Cards */
+.book-stock-control {
+    margin-top: auto;
+    padding-top: 12px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.book-stock-label {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.book-stock-inputs {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.book-stock-input {
+    flex: 1;
+    padding: 6px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.book-stock-button {
+    background: #209cee;
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
+    transition: background 0.2s ease;
+    white-space: nowrap;
+}
+
+.book-stock-button:hover {
+    background: #1496ed;
+}
+
+.book-stock-button:active {
+    background: #118fe4;
+}
+
+/* Footer */
+.footer {
+    padding: 10px 1.5rem;
 }

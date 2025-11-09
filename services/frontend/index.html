@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
         <link rel="stylesheet" type="text/css" href="index.css" />
         <link rel="stylesheet" href="https://unpkg.com/bulma-modal-fx/dist/css/modal-fx.min.css" />
+        <link rel="stylesheet" href="https://unpkg.com/lucide-static@latest/font/lucide.css" />
     </head>
     <body>
         <section class="hero is-info is-small">
@@ -16,11 +17,27 @@
                 <div class="container has-text-centered">
                     <p class="title">Micro Livraria</p>
                 </div>
+                <!-- Notification Bell -->
+                <div class="notification-bell-container">
+                    <button class="notification-bell" id="notificationBell">
+                        <i class="icon-bell"></i>
+                        <span class="notification-badge" id="notificationBadge" style="display: none;">0</span>
+                    </button>
+                    <div class="notification-dropdown" id="notificationDropdown" style="display: none;">
+                        <div class="notification-header">
+                            <strong>Notificações</strong>
+                        </div>
+                        <div class="notification-list" id="notificationList">
+                            <p class="no-notifications">Nenhuma notificação</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
         <div class="box cta">
             <p class="has-text-centered">Uma simples livraria utilizando microservices</p>
         </div>
+
         <section class="container">
             <div class="columns books"></div>
         </section>

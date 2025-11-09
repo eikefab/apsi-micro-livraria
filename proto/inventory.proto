@@ -2,6 +2,7 @@ syntax = "proto3";
 
 service InventoryService {
     rpc SearchAllProducts(Empty) returns (ProductsResponse) {}
+    rpc UpdateStock(UpdateStockRequest) returns (UpdateStockResponse) {}
 }
 
 message Empty{}
@@ -13,8 +14,19 @@ message ProductResponse {
     float price = 4;
     string photo = 5;
     string author = 6;
+    bool inStock = 7;
 }
 
 message ProductsResponse {
     repeated ProductResponse products = 1;
+}
+
+message UpdateStockRequest {
+    int32 bookId = 1;
+    int32 newQuantity = 2;
+}
+
+message UpdateStockResponse {
+    bool success = 1;
+    string message = 2;
 }
