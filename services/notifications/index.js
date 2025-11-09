@@ -149,6 +149,6 @@ server.addService(notificationsProto.NotificationService.service, {
 });
 
 server.bindAsync('0.0.0.0:3003', grpc.ServerCredentials.createInsecure(), () => {
-    console.log('Notification Service running at http://127.0.0.1:3003');
+    console.log('Notification Service running at http://0.0.0.0:3003');
     server.start();
 });

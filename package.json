@@ -14,7 +14,12 @@
         "exec-controller": "node services/controller/index.js",
         "exec-shipping": "node services/shipping/index.js",
         "exec-inventory": "node services/inventory/index.js",
-        "exec-notifications": "node services/notifications/index.js"
+        "exec-notifications": "node services/notifications/index.js",
+        "docker:build": "docker-compose build",
+        "docker:up": "docker-compose up",
+        "docker:up:detached": "docker-compose up -d",
+        "docker:down": "docker-compose down",
+        "docker:logs": "docker-compose logs -f"
     },
     "repository": {
         "type": "git",

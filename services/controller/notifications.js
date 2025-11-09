@@ -9,6 +9,8 @@ const packageDefinition = protoLoader.loadSync('proto/notifications.proto', {
 });
 
 const NotificationService = grpc.loadPackageDefinition(packageDefinition).NotificationService;
-const client = new NotificationService('127.0.0.1:3003', grpc.credentials.createInsecure());
+
+const NOTIFICATION_HOST = process.env.NOTIFICATION_HOST || '127.0.0.1:3003';
+const client = new NotificationService(NOTIFICATION_HOST, grpc.credentials.createInsecure());
 
 module.exports = client;

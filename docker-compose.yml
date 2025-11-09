@@ -1,0 +1,68 @@
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend.Dockerfile
+    container_name: micro-livraria-frontend
+    ports:
+      - "5000:5000"
+    networks:
+      - livraria-network
+    depends_on:
+      - controller
+
+  controller:
+    build:
+      context: .
+      dockerfile: controller.Dockerfile
+    container_name: micro-livraria-controller
+    ports:
+      - "3000:3000"
+    environment:
+      - SHIPPING_HOST=shipping:3001
+      - INVENTORY_HOST=inventory:3002
+      - NOTIFICATION_HOST=notifications:3003
+    networks:
+      - livraria-network
+    depends_on:
+      - shipping
+      - inventory
+      - notifications
+
+  shipping:
+    build:
+      context: .
+      dockerfile: shipping.Dockerfile
+    container_name: micro-livraria-shipping
+    expose:
+      - "3001"
+    networks:
+      - livraria-network
+
+  inventory:
+    build:
+      context: .
+      dockerfile: inventory.Dockerfile
+    container_name: micro-livraria-inventory
+    environment:
+      - NOTIFICATION_HOST=notifications:3003
+    expose:
+      - "3002"
+    networks:
+      - livraria-network
+    depends_on:
+      - notifications
+
+  notifications:
+    build:
+      context: .
+      dockerfile: notifications.Dockerfile
+    container_name: micro-livraria-notifications
+    expose:
+      - "3003"
+    networks:
+      - livraria-network
+
+networks:
+  livraria-network:
+    driver: bridge

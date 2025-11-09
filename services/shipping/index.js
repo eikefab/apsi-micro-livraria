@@ -24,6 +24,6 @@ server.addService(shippingProto.ShippingService.service, {
 });
 
 server.bindAsync('0.0.0.0:3001', grpc.ServerCredentials.createInsecure(), () => {
-    console.log('Shipping Service running at http://127.0.0.1:3001');
+    console.log('Shipping Service running at http://0.0.0.0:3001');
     server.start();
 });

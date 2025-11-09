@@ -157,6 +157,6 @@ app.post('/products/:bookId/stock', (req, res, next) => {
 /**
  * Inicia o router
  */
-app.listen(3000, () => {
-    console.log('Controller Service running on http://127.0.0.1:3000');
+app.listen(3000, '0.0.0.0', () => {
+    console.log('Controller Service running on http://0.0.0.0:3000');
 });
